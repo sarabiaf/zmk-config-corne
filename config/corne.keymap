@@ -69,7 +69,6 @@
                 <&macro_release>,
                 <&kp LCTRL>;
         };
-
     };
 
     combos {
@@ -186,10 +185,10 @@
             // | GUI | CTRL | SHFT | LWR | SPC |   | ENT | RSE  | BKSP | ALT | ESC |
 
             bindings = <
-&kp TAB    &kp Q  &kp W  &kp E     &kp R  &kp T        &kp Y    &kp U      &kp I          &kp O    &kp P     &kp BACKSPACE
-&kp LSHFT  &kp A  &kp S  &kp D     &kp F  &kp G        &kp H    &kp J      &kp K          &kp L    &kp SEMI  &kp SQT
-&kp LCTRL  &kp Z  &kp X  &kp C     &kp V  &kp B        &kp N    &kp M      &kp COMMA      &kp DOT  &kp FSLH  &kp RSHFT
-                         &kp LGUI  &mo 1  &kp SPACE    &kp RET  &lt 2 TAB  &kp LEFT_ALT
+&lt 3 GRAVE   &kp Q  &kp W  &kp E         &kp R      &kp T               &kp Y    &kp U            &kp I      &kp O    &kp P     &kp BACKSPACE
+&lt 2 TAB     &kp A  &kp S  &kp D         &kp F      &kp G               &kp H    &kp J            &kp K      &kp L    &kp SEMI  &kp SQT
+&kp LEFT_ALT  &kp Z  &kp X  &kp C         &kp V      &kp B               &kp N    &kp M            &kp COMMA  &kp DOT  &kp FSLH  &kp RIGHT_GUI
+                            &lt 1 ESCAPE  &kp ENTER  &kp LEFT_CONTROL    &kp RET  &kp RIGHT_SHIFT  &kp DEL
             >;
         };
 
@@ -203,10 +202,10 @@
             // | GUI | CTRL | SHFT | LWR | SPC |   | ENT | RSE  | BKSP | ALT | ESC |
 
             bindings = <
-&trans  &kp N1  &kp N2    &kp N3       &kp N4           &kp N5           &kp N6   &kp N7        &kp N8        &kp N9        &kp N0  &trans
-&caps_word  &trans  &trans    &kp UP_ARROW  &browsertab      &kp PAGE_UP      &kp N0   &kp N4  &kp N5        &kp N6  &trans  &trans
-&trans  &trans  &kp LEFT  &kp DOWN      &kp RIGHT_ARROW  &kp PAGE_DOWN    &trans   &kp N1  &kp N2  &kp N3  &trans  &trans
-                          &kp LGUI      &trans           &kp SPACE        &kp RET  &trans        &trans
+&trans      &kp N1  &kp N2    &kp N3        &kp N4           &kp N5           &kp MINUS  &kp N7  &kp N8  &kp N9  &kp ASTERISK  &trans
+&caps_word  &trans  &trans    &kp UP_ARROW  &browsertab      &kp PAGE_UP      &kp N0     &kp N4  &kp N5  &kp N6  &kp PERIOD    &kp EQUAL
+&trans      &trans  &kp LEFT  &kp DOWN      &kp RIGHT_ARROW  &kp PAGE_DOWN    &kp PLUS   &kp N1  &kp N2  &kp N3  &kp SLASH     &kp PERCENT
+                              &kp LGUI      &trans           &kp SPACE        &kp RET    &trans  &trans
             >;
         };
 
@@ -220,10 +219,10 @@
             //                    | GUI |     | SPC |   | ENT |     | ALT |
 
             bindings = <
-&trans  &kp EXCL  &kp AT          &kp HASH        &kp DLLR         &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTRK  &kp LEFT_PARENTHESIS  &kp RPAR  &trans
-&trans  &trans    &trans          &kp UP_ARROW    &trans           &kp GRAVE    &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT              &kp BSLH  &trans
-&trans  &trans    &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp TILDE    &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC              &kp PIPE  &trans
-                                  &kp LGUI        &trans           &kp SPACE    &kp RET    &trans     &trans
+&kp CARET  &kp AT_SIGN      &kp AMPERSAND  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp UNDERSCORE    &kp MINUS     &kp N7        &kp NUMBER_8  &kp NUMBER_9  &kp ASTERISK  &trans
+&kp PIPE   &kp EXCLAMATION  &kp DOLLAR     &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp HASH          &kp NUMBER_0  &kp N4        &kp NUMBER_5  &kp NUMBER_6  &kp PERIOD    &kp EQUAL
+&trans     &kp BACKSLASH    &kp DELETE     &kp LEFT_BRACE        &kp RIGHT_BRACE        &none             &kp PLUS      &kp NUMBER_1  &kp NUMBER_2  &kp N3        &kp SLASH     &kp PERCENT
+                                           &kp LGUI              &trans                 &kp SPACE         &kp RET       &trans        &trans
             >;
         };
 
@@ -231,18 +230,19 @@
             display-name = "System";
             bindings = <
 &trans  &kp F1        &kp F2        &kp F3        &kp F4      &kp F5            &kp F6  &kp F7  &kp F8  &kp F9  &kp F10      &trans
-&trans  &kp F11       &kp F12       &trans        &trans      &studio_unlock            &trans  &trans  &trans  &trans  &trans       &trans
+&trans  &kp F11       &kp F12       &trans        &trans      &studio_unlock    &trans  &trans  &trans  &trans  &trans       &trans
 &trans  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_CLR  &bt BT_CLR_ALL    &trans  &trans  &trans  &trans  &bootloader  &trans
                                     &trans        &trans      &trans            &trans  &trans  &trans
             >;
         };
+
         EXTRA {
-                display-name = "Extra";
+            display-name = "Extra";
             bindings = <
-&trans  &trans       &trans         &mmv MOVE_UP       &trans      &msc SCRL_UP    &trans  &trans  &trans  &trans  &trans      &trans
-&trans  &trans       &mmv MOVE_LEFT &mmv MOVE_DOWN     &mmv MOVE_RIGHT   &msc SCRL_DOWN            &trans  &trans  &trans  &trans  &trans       &trans
-&trans  &trans       &trans   &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                                     &trans        &trans      &trans            &trans  &trans  &trans
+&trans  &trans  &trans          &mmv MOVE_UP    &trans           &msc SCRL_UP      &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &msc SCRL_DOWN    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans          &trans          &trans           &trans            &trans  &trans  &trans  &trans  &trans  &trans
+                                &trans          &trans           &trans            &trans  &trans  &trans
             >;
         };
     };
