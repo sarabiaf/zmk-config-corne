@@ -24,6 +24,39 @@
             global-quick-tap;
         };
 
+        // One tap is an ordinary Shift, held or not; two taps toggle Caps
+        // Lock, and two more turn it off again.
+        //
+        // Each hand gets its own instance rather than sharing one. A tap dance
+        // counts taps against the behaviour, and one instance bound to two keys
+        // risks a tap on each hand counting as a double tap on neither.
+        shift_caps_l: shift_caps_l {
+            compatible = "zmk,behavior-tap-dance";
+            label = "SHIFT_CAPS_L";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp LSHFT>, <&kp CAPS>;
+        };
+
+        shift_caps: shift_caps {
+            compatible = "zmk,behavior-tap-dance";
+            label = "SHIFT_CAPS";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp RSHFT>, <&kp CAPS>;
+        };
+
+        mouse_td: mouse_td {
+            compatible = "zmk,behavior-tap-dance";
+            label = "MOUSE_TD";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+
+            // one tap is the ordinary Tab / hold-for-NAV key; two taps latch
+            // the mouse layer, which Esc or Tab then leaves
+            bindings = <&lt 1 TAB>, <&to 4>;
+        };
+
         para: para {
             compatible = "zmk,behavior-tap-dance";
             label = "PARA";
@@ -140,7 +173,7 @@
         };
 
         minus {
-            bindings = <&kp KP_MINUS>;
+            bindings = <&kp MINUS>;
             key-positions = <31 19>;
         };
 
@@ -185,10 +218,10 @@
             // | GUI | CTRL | SHFT | LWR | SPC |   | ENT | RSE  | BKSP | ALT | ESC |
 
             bindings = <
-&lt 3 GRAVE   &kp Q  &kp W  &kp E         &kp R      &kp T               &kp Y    &kp U            &kp I      &kp O    &kp P     &kp BACKSPACE
-&lt 1 TAB     &kp A  &kp S  &kp D         &kp F      &kp G               &kp H    &kp J            &kp K      &kp L    &kp SEMI  &mt RIGHT_GUI SQT
-&kp LEFT_ALT  &kp Z  &kp X  &kp C         &kp V      &kp B               &kp N    &kp M            &kp COMMA  &kp DOT  &kp FSLH  &kp RIGHT_GUI
-                            &lt 2 ESCAPE  &kp ENTER  &kp LEFT_CONTROL    &kp RET  &kp RIGHT_SHIFT  &kp DEL
+&lt 3 GRAVE   &kp Q  &kp W  &kp E         &kp R      &kp T               &kp Y    &kp U            &kp I      &kp O    &kp P     &kp CARET
+&mouse_td     &kp A  &kp S  &kp D         &kp F      &kp G               &kp H    &kp J            &kp K      &kp L    &kp SEMI  &mt RIGHT_GUI SQT
+&shift_caps_l &kp Z  &kp X  &kp C         &kp V      &kp B               &kp N    &kp M            &kp COMMA  &kp DOT  &kp FSLH  &shift_caps
+                            &lt 2 ESCAPE  &kp ENTER  &kp LEFT_CONTROL    &kp BSPC  &kp SPACE  &kp LALT
             >;
         };
 
@@ -202,10 +235,10 @@
             // | GUI | CTRL | SHFT | LWR | SPC |   | ENT | RSE  | BKSP | ALT | ESC |
 
             bindings = <
-&trans      &kp N1  &kp LG(TAB)  &kp LC(LG(LEFT_ARROW))  &kp LC(LG(RIGHT))  &none                    &none           &none           &none         &none      &none  &studio_unlock
-&caps_word  &trans  &mkp RCLK    &mkp MCLK               &mkp LCLK          &none                    &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT  &none  &none
-&trans      &trans  &none        &none                   &none              &none                    &none           &none           &none         &none      &none  &none
-                                 &none                   &kp LA(SEMICOLON)  &kp LC(LS(SEMICOLON))    &trans          &trans          &trans
+&none  &none  &kp LS(F21)  &kp LS(F20)  &kp LS(F19)  &kp LS(F24)    &kp F24  &kp F19  &kp F20  &kp F21  &none  &studio_unlock
+&none  &none  &kp LS(F18)  &kp LS(F17)  &kp LS(F16)  &kp LS(F22)    &kp F22  &kp F16  &kp F17  &kp F18  &none  &none
+&none  &none  &kp LS(F15)  &kp LS(F14)  &kp LS(F13)  &kp LS(F23)    &kp F23  &kp F13  &kp F14  &kp F15  &none  &none
+                           &trans       &trans       &trans         &trans   &trans   &trans
             >;
         };
 
@@ -219,30 +252,30 @@
             //                    | GUI |     | SPC |   | ENT |     | ALT |
 
             bindings = <
-&kp CARET  &kp AT_SIGN      &kp AMPERSAND  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp UNDERSCORE    &kp MINUS     &kp N7        &kp NUMBER_8  &kp NUMBER_9  &kp ASTERISK  &kp DEL
-&kp PIPE   &kp EXCLAMATION  &kp DOLLAR     &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp HASH          &kp NUMBER_0  &kp N4        &kp NUMBER_5  &kp NUMBER_6  &kp PERIOD    &kp EQUAL
-&trans     &kp BACKSLASH    &kp DELETE     &kp LEFT_BRACE        &kp RIGHT_BRACE        &none             &kp PLUS      &kp NUMBER_1  &kp NUMBER_2  &kp N3        &kp SLASH     &kp PERCENT
-                                           &kp LGUI              &trans                 &kp SPACE         &kp RET       &trans        &trans
+&kp PIPE   &kp AT_SIGN      &kp AMPERSAND  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp UNDERSCORE    &kp MINUS     &kp N7        &kp N8  &kp N9  &kp ASTERISK  &kp PERCENT
+&kp LGUI   &kp EXCLAMATION  &kp DOLLAR     &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp HASH          &kp N0  &kp N4        &kp N5  &kp N6  &kp PERIOD    &kp EQUAL
+&kp LSHFT  &kp BACKSLASH    &kp DELETE     &kp LEFT_BRACE        &kp RIGHT_BRACE        &none             &kp PLUS      &kp N1  &kp N2  &kp N3        &kp SLASH     &kp RSHFT
+                                           &kp ESC               &kp ENTER              &kp LEFT_CONTROL  &kp BSPC      &kp SPACE     &kp LALT
             >;
         };
 
         ADJ {
             display-name = "System";
             bindings = <
-&trans  &kp F1        &kp F2        &kp F3        &kp F4      &kp F5            &kp F6  &kp F7  &kp F8  &kp F9  &kp F10      &trans
-&trans  &kp F11       &kp F12       &trans        &trans      &studio_unlock    &trans  &trans  &trans  &trans  &trans       &trans
-&trans  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_CLR  &bt BT_CLR_ALL    &trans  &trans  &trans  &trans  &bootloader  &trans
-                                    &trans        &trans      &trans            &trans  &trans  &trans
+&none        &none  &kp LC(LS(F21))  &kp LC(LS(F20))  &kp LC(LS(F19))  &kp LC(LS(F24))    &kp F12  &kp F7  &kp F8  &kp F9  &none  &studio_unlock
+&none        &none  &kp LC(LS(F18))  &kp LC(LS(F17))  &kp LC(LS(F16))  &kp LC(LS(F22))    &kp F10  &kp F4  &kp F5  &kp F6  &none  &bt BT_CLR
+&bootloader  &none  &kp LC(LS(F15))  &kp LC(LS(F14))  &kp LC(LS(F13))  &kp LC(LS(F23))    &kp F11  &kp F1  &kp F2  &kp F3  &none  &bootloader
+                                     &trans           &trans           &trans             &trans   &trans  &trans
             >;
         };
 
         EXTRA {
             display-name = "Extra";
             bindings = <
-&trans  &trans  &trans          &mmv MOVE_UP    &trans           &msc SCRL_UP      &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &msc SCRL_DOWN    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans          &trans          &trans           &trans            &trans  &trans  &trans  &trans  &trans  &trans
-                                &trans          &trans           &trans            &trans  &trans  &trans
+&trans  &trans  &trans     &trans     &trans     &trans       &msc SCRL_LEFT   &msc SCRL_DOWN   &msc SCRL_UP   &msc SCRL_RIGHT   &trans  &trans
+&to 0   &trans  &mkp RCLK  &mkp MCLK  &mkp LCLK  &trans       &mmv MOVE_LEFT   &mmv MOVE_DOWN   &mmv MOVE_UP   &mmv MOVE_RIGHT   &trans  &trans
+&trans  &trans  &trans     &trans     &trans     &trans       &trans           &trans           &trans         &trans            &trans  &trans
+                           &to 0      &mkp LCLK  &mkp RCLK    &trans           &trans           &trans
             >;
         };
     };
