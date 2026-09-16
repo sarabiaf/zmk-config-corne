@@ -201,7 +201,7 @@
         compatible = "zmk,keymap";
 
         DEF {
-            display-name = "Base";
+            display-name = "L0";
 
             // -----------------------------------------------------------------------------------------
             // |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  |
@@ -218,7 +218,7 @@
         };
 
         NAV {
-            display-name = "NavNum";
+            display-name = "L1";
 
             // -----------------------------------------------------------------------------------------
             // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BKSP |
@@ -235,7 +235,7 @@
         };
 
         SYM {
-            display-name = "Symbols";
+            display-name = "L2";
 
             // -----------------------------------------------------------------------------------------
             // |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
@@ -252,7 +252,7 @@
         };
 
         ADJ {
-            display-name = "System";
+            display-name = "L3";
             bindings = <
 &none        &none  &kp LC(LS(F21))  &kp LC(LS(F20))  &kp LC(LS(F19))  &kp LC(LS(F24))    &kp F12  &kp F7  &kp F8  &kp F9  &none  &studio_unlock
 &none        &none  &kp LC(LS(F18))  &kp LC(LS(F17))  &kp LC(LS(F16))  &kp LC(LS(F22))    &kp F10  &kp F4  &kp F5  &kp F6  &none  &bt BT_CLR
@@ -266,7 +266,7 @@
         // firmware flash, and the fingers keep the positions they already know:
         // HJKL move, YUIO scroll, SDF click.
         EXTRA {
-            display-name = "Mouse";
+            display-name = "L4";
             bindings = <
 &none  &none  &kp LA(LS(F21))  &kp LA(LS(F20))  &kp LA(LS(F19))  &kp LA(LS(F24))    &kp LA(F24)  &kp LA(F19)  &kp LA(F20)  &kp LA(F21)  &none  &studio_unlock
 &none  &none  &kp LA(LS(F18))  &kp LA(LS(F17))  &kp LA(LS(F16))  &kp LA(LS(F22))    &kp LA(F22)  &kp LA(F16)  &kp LA(F17)  &kp LA(F18)  &none  &none
