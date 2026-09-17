@@ -193,6 +193,33 @@
             bindings = <&paragreat>;
             key-positions = <20 21>;
         };
+
+        // Tab and Enter together, straight to the mouse layer.
+        //
+        // The slow way in - hold Tab for NAV, then hold Enter for &mo 4 - works
+        // and always did, but only slowly. `&lt` is ZMK's stock layer-tap:
+        // tap-preferred, 200ms, which decides hold or tap when the term expires
+        // and not before. Pressing Enter inside that window therefore lands on
+        // L0, where position 37 is a plain Enter, so the mouse layer never
+        // opens and a newline is typed instead. Reaching for both keys at once
+        // is the natural gesture and it was the one that could not work.
+        //
+        // A combo rather than changing the layer-tap's flavour, because
+        // hold-preferred would make every Tab followed quickly by a letter into
+        // a layer action - and "Tab to indent, then type" is real. This touches
+        // nothing but these two keys.
+        //
+        // Both numbers are the ones to tune after living with it: raise
+        // timeout-ms if a deliberate press is missed, and require-prior-idle-ms
+        // is what stops a fast Tab-then-Enter in a form from opening the layer
+        // by accident.
+        mouse-layer {
+            bindings = <&mo 4>;
+            key-positions = <12 37>;
+            timeout-ms = <60>;
+            require-prior-idle-ms = <125>;
+            layers = <0>;
+        };
     };
 
     //
@@ -268,15 +295,29 @@
         // this layer's actions instead of its own.
         //
         // One modifier pair means the two halves can no longer share F-keys the
-        // way NAV's mirror does, so the twelve keys that do something get twelve
-        // distinct codes and every other key on the layer is dead. HJKL move,
-        // YUIO scroll, SDF click right, middle and left, G is the grid.
+        // way NAV's mirror does, so every key that does something gets its own
+        // code. HJKL move, YUIO scroll, SDF click right, middle and left, G is
+        // the grid, and XCVB arrange the window: minimise, left half, right
+        // half, whole screen.
+        //
+        // Two banks of twelve, both flashed in full so that adding an action
+        // later is a jumps.ini edit and not another trip to the bootloader:
+        //   both Shifts            F13-F24   HJKL YUIO SDF G
+        //   Ctrl and both Shifts   F13-F24   XCVB, and eight keys still free
+        // XCVB take Ctrl+Shift+F13-F16 rather than Shift+F1-F4, because an
+        // application cannot tell left Shift from right and would read the
+        // latter as Shift+F1..F4 - context help, rename, change case, repeat
+        // find. Every code here is one no application answers, so the layer is
+        // harmless on the days AutoKey is not running to catch it.
+        //
+        // Still free on Ctrl and both Shifts: Z F17, N F18, M F19, comma F20,
+        // period F21, A F22, W F23, E F24. Wired, unbound, waiting.
         EXTRA {
             display-name = "L4";
             bindings = <
-&none  &none  &none            &none            &none            &none              &kp LS(RS(F24))  &kp LS(RS(F19))  &kp LS(RS(F20))  &kp LS(RS(F21))  &none  &studio_unlock
-&none  &none  &kp LS(RS(F23))  &kp LS(RS(F13))  &kp LS(RS(F14))  &kp LS(RS(F15))    &kp LS(RS(F22))  &kp LS(RS(F16))  &kp LS(RS(F17))  &kp LS(RS(F18))  &none  &none
-&none  &none  &none            &none            &none            &none              &none            &none            &none            &none            &none  &none
+&none  &kp LC(LS(RS(F23)))  &kp LC(LS(RS(F24)))  &none                &none                &none                  &kp LS(RS(F24))      &kp LS(RS(F19))      &kp LS(RS(F20))      &kp LS(RS(F21))      &none  &studio_unlock
+&none  &kp LC(LS(RS(F22)))  &kp LS(RS(F23))      &kp LS(RS(F13))      &kp LS(RS(F14))      &kp LS(RS(F15))        &kp LS(RS(F22))      &kp LS(RS(F16))      &kp LS(RS(F17))      &kp LS(RS(F18))      &none  &none
+&none  &kp LC(LS(RS(F17)))  &kp LC(LS(RS(F13)))  &kp LC(LS(RS(F14)))  &kp LC(LS(RS(F15)))  &kp LC(LS(RS(F16)))    &kp LC(LS(RS(F18)))  &kp LC(LS(RS(F19)))  &kp LC(LS(RS(F20)))  &kp LC(LS(RS(F21)))  &none  &none
                                 &trans           &trans           &mkp LCLK          &trans           &trans           &trans
             >;
         };
